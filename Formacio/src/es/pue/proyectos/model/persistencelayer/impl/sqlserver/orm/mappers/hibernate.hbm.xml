@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="es.pue.proyectos.model.businesslayer.entities">
+	<class name="Project" table="adri_PROJECT">
+	    <id name="id" column="Id"/>
+	    <property name="dbPersistedDate" column="DbPersistedDate"></property>
+	    <property name="deletedDate" column="DeletedDate"></property>
+	    <property name="code" column="Code"></property>
+	    <property name="description" column="Description"></property>
+	    <many-to-one name="client" class="Client" column="Client_Id"></many-to-one>
+	    <many-to-one name="department" class="Department" column="Department_Id"></many-to-one>
+	    <many-to-one name="projectManager" class="Person" column="Person_Id"></many-to-one>
+	    
+	    <bag name="workingOrders" table="adri_PROJECT_WORKING_ORDER">
+	    	<key column="ProjectId" />
+	    	<many-to-many column="WorkingOrderId" class="WorkingOrder"/>
+	    </bag>
+	</class>
+	
+	<class name="WorkingOrder" table="adri_WORKING_ORDER">
+	    <id name="id" column="Id"/>
+	    <property name="dbPersistedDate" column="DbPersistedDate"></property>
+	    <property name="deletedDate" column="DeletedDate"></property>
+	    <property name="code" column="Code"></property>
+	    <property name="description" column="Description"></property>
+	    <many-to-one name="teamLeader" class="Person" column="TeamLeader_Id"></many-to-one>
+	    <many-to-one name="costCenter" class="CostCenter" column="CostCenter_Id"></many-to-one>
+	    <property name="parentWorkingOrderId" column="ParentWorkingOrderId"></property>
+	    
+	    <bag name="tasks" table="adri_WORKING_ORDERS_TASKS">
+	    	<key column="WorkingOrderId" />
+	    	<many-to-many column="TaskId" class="Task"/>
+	    </bag>
+	    
+	    <bag name="subWorkingOrders" table="adri_WORKING_ORDER_SUBWORKING_ORDER">
+	    	<key column="WorkingOrderId" />
+	    	<many-to-many column="SubWorkingOrderId" class="WorkingOrder"/>
+	    </bag>
+	    
+	    <bag name="team" table="adri_WORKING_ORDERS_PERSON">
+	    	<key column="WorkingOrderId" />
+	    	<many-to-many column="PersonId" class="Person"/>
+	    </bag>
+	</class>
+	
+	<class name="Client" table="adri_CLIENT">
+	    <id name="id" column="Id"/>
+	    <property name="dbPersistedDate" column="DbPersistedDate"></property>
+	    <property name="deletedDate" column="DeletedDate"></property>
+	    <property name="name" column="Name"></property>
+	</class>
+	
+	<class name="CostCenter" table="adri_COST_CENTER">
+	    <id name="id" column="Id"/>
+	    <property name="dbPersistedDate" column="DbPersistedDate"></property>
+	    <property name="deletedDate" column="DeletedDate"></property>
+	    <property name="name" column="Name"></property>
+	</class>
+	
+	<class name="Department" table="adri_DEPARTMENT">
+	    <id name="id" column="Id"/>
+	    <property name="dbPersistedDate" column="DbPersistedDate"></property>
+	    <property name="deletedDate" column="DeletedDate"></property>
+	    <property name="name" column="Name"></property>
+	    
+	    <bag name="costCenters" table="adri_DEPARTMENT_COST_CENTER">
+	    	<key column="WorkingOrderId" />
+	    	<many-to-many column="CostCenterId" class="CostCenter"/>
+	    </bag>
+	</class>
+	
+	<class name="Person" table="adri_PERSON">
+	    <id name="id" column="Id"/>
+	    <property name="dbPersistedDate" column="DbPersistedDate"></property>
+	    <property name="deletedDate" column="DeletedDate"></property>
+	   	<property name="name" column="Name"></property>
+	</class>
+	
+	<class name="Resource" table="adri_RESOURCE">
+	    <id name="id" column="Id"/>
+	    <property name="dbPersistedDate" column="DbPersistedDate"></property>
+	    <property name="deletedDate" column="DeletedDate"></property>
+	    <property name="name" column="Name"></property>
+	</class>
+	
+	<class name="Task" table="adri_TASK">
+	    <id name="id" column="Id"/>
+	    <property name="dbPersistedDate" column="DbPersistedDate"></property>
+	    <property name="deletedDate" column="DeletedDate"></property>
+	    <property name="name" column="Name"></property>
+	    <property name="parentTaskId" column="ParentTaskId"></property>
+	    
+	    <bag name="subTasks" table="adri_TASK_SUBTASK">
+	    	<key column="TaskId" />
+	    	<many-to-many column="SubTaskId" class="Task"/>
+	    </bag>
+	    
+	    <bag name="resources" table="adri_WORKING_ORDER_SUBWORKING_ORDER">
+	    	<key column="TaskId" />
+	    	<many-to-many column="ResourceId" class="Resource"/>
+	    </bag>
+	    
+	    <bag name="team" table="adri_TASK_PERSON">
+	    	<key column="TaskId" />
+	    	<many-to-many column="PersonId" class="Person"/>
+	    </bag>
+	</class>
+</hibernate-mapping>
