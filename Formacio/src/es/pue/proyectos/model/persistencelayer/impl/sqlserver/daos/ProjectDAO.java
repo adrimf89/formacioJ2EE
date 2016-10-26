@@ -17,8 +17,7 @@ public class ProjectDAO implements IProjectDAO{
 	
 	@Override
 	public List<Project> findProjects() {
-		//HQL
-		return null;
+		return (List<Project>) session.createQuery("FROM Project").list();
 	}
 
 	@Override
@@ -35,8 +34,7 @@ public class ProjectDAO implements IProjectDAO{
 
 	@Override
 	public void saveProject(Project project) {
-		// TODO Auto-generated method stub
-		
+		session.save(project);
 	}
 
 }

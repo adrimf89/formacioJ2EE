@@ -19,7 +19,9 @@ public class ServiceManager {
 	
 	public IProjectService getProjectSerice(){
 		if (projectService==null){
-			projectService = new ProjectService();
+			//AQUI CAL PASSAR CADASCUNA DE LES PERSISTENCIES QUE EXISTEIXEN PER PARAMETRE
+			//projectService = new ProjectService(this.sqlServerPersistenceManager, tech1PersistenceManager, tech2PersistenceManager);
+			projectService = new ProjectService(this.sqlServerPersistenceManager);
 		}
 		return projectService;
 	}

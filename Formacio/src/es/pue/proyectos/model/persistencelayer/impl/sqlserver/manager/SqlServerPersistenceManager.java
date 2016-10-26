@@ -25,7 +25,7 @@ public class SqlServerPersistenceManager extends PersistenceManager{
 			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 			
 			sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-			session = sessionFactory.getCurrentSession();
+			session = sessionFactory.openSession();
 		} catch (Throwable ex){
 			System.err.print(ex);
 			throw ex;
