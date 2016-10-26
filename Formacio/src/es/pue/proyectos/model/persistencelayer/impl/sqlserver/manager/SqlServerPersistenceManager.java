@@ -55,4 +55,15 @@ public class SqlServerPersistenceManager extends PersistenceManager{
 		return projectDAO;
 	}
 
+	@Override
+	public void destroy() {
+		if (session.isOpen()){
+			session.close();
+		}
+		if (!sessionFactory.isClosed()){
+			sessionFactory.close();
+		}
+		
+	}
+
 }

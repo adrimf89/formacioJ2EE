@@ -50,4 +50,9 @@ public class ServiceManager {
 		}
 	}
 	
+	public void destroy() {
+		sqlServerPersistenceManager.destroy();
+		//DESTROY ALL PERSISTENCES
+	}
+	
 }

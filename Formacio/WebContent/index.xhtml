@@ -11,8 +11,9 @@
 	</h:head>
 	
 	<h:body>
-	
-	Hello from #{indexController.name}
+		<h:form>
+			<h:commandLink value="Get projects" action="#{restController.getProjects()}"></h:commandLink>
+		</h:form>
 	</h:body>
 	
 </html>

@@ -9,6 +9,7 @@ public abstract class PersistenceManager {
 	public abstract void initTransaction();
 	public abstract void saveChanges();
 	public abstract void discardChanges();
+	public abstract void destroy();
 	
 	public abstract IProjectDAO getProjectDAO();
 	
